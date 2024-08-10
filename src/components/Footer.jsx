@@ -25,7 +25,7 @@ const Footer = () => {
                     <Text fontWeight={'bold'} fontSize={['sm', 'md']}>
                         About us
                     </Text>
-                    <Text fontSize={'xs'} letterSpacing={'wide'}>
+                    <Text fontSize={'sm'} letterSpacing={'wide'}>
                         We are a one-stop solution to all your Crypto-related queries.
                     </Text>
                 </VStack>
@@ -36,8 +36,8 @@ const Footer = () => {
                     alignItems={['center', 'flex-end']}
                 >
                     <Image src={img} w={'20'} h={'20'} /> {/* Image size */}
-                    <Text fontSize={'xs'}>Developed By</Text>
-                    <Text fontSize={'xs'}>Harsh Vardhan</Text>
+                    <Text fontSize={'sm'}>Developed By</Text>
+                    <Text fontSize={'sm'}>Harsh Vardhan</Text>
                 </VStack>
             </Stack>
         </Box>
