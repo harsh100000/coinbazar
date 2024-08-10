@@ -38,7 +38,10 @@ const Coins = ({ searchQuery }) => {
 
   if (error) return <ErrorComponent message={"Error while fetching Coins"} />;
 
-  const filteredCoins = coins.filter((coin) => coin.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredCoins = coins.filter((coin) => {
+    const searchString = `${coin.name} ${coin.symbol}`.toLowerCase();
+    return searchString.includes(searchQuery.toLowerCase());
+  });
 
   return (
     <Container maxW={'container.xl'}>

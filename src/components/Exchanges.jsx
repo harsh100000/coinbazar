@@ -5,7 +5,7 @@ import Loader from './Loader';
 import { Container, HStack, Heading, Image, VStack, Text } from '@chakra-ui/react';
 import ErrorComponent from './ErrorComponent';
 
-const Exchanges = () => {
+const Exchanges = ({ searchQuery }) => {
 
   const [exchanges, setExchanges] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,29 +27,30 @@ const Exchanges = () => {
   
   if(error) return (<ErrorComponent message={"Error while fetching Exchanges"} />)
 
+    const filteredExchanges = exchanges.filter((exchange) => {
+      const searchString = `${exchange.name} ${exchange.id}`.toLowerCase();
+      return searchString.includes(searchQuery.toLowerCase());
+    });
+
   return (
     <Container maxW={'container.xl'} >
-
-    {loading?<Loader/>:(
-      <>
+      {loading ? <Loader /> : (
+        <>
           <HStack wrap={'wrap'} justifyContent={'space-evenly'}>
             {
-              exchanges.map((i)=>(
-
-                <ExchangeCard 
-                key={i.id}
-                name={i.name} 
-                img={i.image} 
-                rank={i.trust_score_rank} 
-                url={i.url} 
+              filteredExchanges.map((i) => (
+                <ExchangeCard
+                  key={i.id}
+                  name={i.name}
+                  img={i.image}
+                  rank={i.trust_score_rank}
+                  url={i.url}
                 />
-
               ))
             }
           </HStack>
-      </>
-    )}
-
+        </>
+      )}
     </Container>
   )
 }

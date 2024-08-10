@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
-import { Button, HStack, VStack, Input, InputGroup, Box } from "@chakra-ui/react";
+import { Button, HStack, Input, InputGroup, Box, Flex } from "@chakra-ui/react";
 
 const Header = ({ setSearchQuery }) => {
     const location = useLocation();
@@ -16,87 +16,43 @@ const Header = ({ setSearchQuery }) => {
         }
     };
 
+    const navButtons = [
+        { to: '/', text: 'Home' },
+        { to: '/coins', text: 'Coins' },
+        { to: '/exchanges', text: 'Exchanges' },
+    ];
+
     return (
-        <Box p={'4'} shadow={'base'} bgColor={'blackAlpha.900'}>
-            <VStack
-                w={'full'}
-                spacing={4}
-                alignItems={'flex-start'}
-                display={['flex', 'flex', 'none']}
+        <Box p={4} shadow="base" bgColor="blackAlpha.900">
+            <Flex 
+                direction={['column', 'column', 'row']} 
+                w="full" 
+                justifyContent="space-between" 
+                alignItems={['flex-start', 'flex-start', 'center']}
             >
-                {/* Navigation buttons for mobile */}
-                <HStack spacing={5} justifyContent={'center'}>
-                    <Button variant={'unstyled'} color={'white'}>
-                        <Link to={'/'}>Home</Link>
-                    </Button>
-                    <Button variant={'unstyled'} color={'white'}>
-                        <Link to={'/coins'}>Coins</Link>
-                    </Button>
-                    <Button variant={'unstyled'} color={'white'}>
-                        <Link to={'/exchanges'}>Exchanges</Link>
-                    </Button>
-                </HStack>
-
-                {/* Search Box and Button for mobile */}
-                {location.pathname === '/coins' && (
-                    <InputGroup maxW={'100%'} mx={'auto'}>
-                        <Input
-                            placeholder="Search coins..."
-                            color={'white'}
-                            value={inputValue}
-                            mr={'3'}
-                            onChange={(e) => setInputValue(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                        />
-                        <Button
-                            variant={'solid'}
-                            colorScheme={'teal'}
-                            size={'sm'}
-                            h={'10'}
-                            px={'6'}
-                            onClick={handleSearch}
-                        >
-                            Search
+                <HStack spacing={5} mb={[4, 4, 0]}>
+                    {navButtons.map((button) => (
+                        <Button key={button.to} variant="unstyled" color="white">
+                            <Link to={button.to}>{button.text}</Link>
                         </Button>
-                    </InputGroup>
-                )}
-            </VStack>
-
-            <HStack
-                w={'full'}
-                justifyContent={'space-between'}
-                alignItems={'center'}
-                display={['none', 'none', 'flex']}
-            >
-                {/* Navigation buttons for larger screens */}
-                <HStack spacing={5}>
-                    <Button variant={'unstyled'} color={'white'}>
-                        <Link to={'/'}>Home</Link>
-                    </Button>
-                    <Button variant={'unstyled'} color={'white'}>
-                        <Link to={'/coins'}>Coins</Link>
-                    </Button>
-                    <Button variant={'unstyled'} color={'white'}>
-                        <Link to={'/exchanges'}>Exchanges</Link>
-                    </Button>
+                    ))}
                 </HStack>
 
-                {/* Search Box and Button for larger screens */}
-                {location.pathname === '/coins' && (
-                    <InputGroup maxW={'250px'}>
+                {(location.pathname === '/coins' || location.pathname === '/exchanges') && (
+                    <InputGroup maxW={['100%', '100%', '250px']}>
                         <Input
-                            placeholder="Search coins..."
-                            color={'white'}
+                            placeholder={location.pathname === '/coins' ? "Search coins..." : "Search exchanges..."}
+                            color="white"
                             value={inputValue}
-                            mr={'3'}
+                            mr={3}
                             onChange={(e) => setInputValue(e.target.value)}
                             onKeyPress={handleKeyPress}
                         />
                         <Button
-                            variant={'solid'}
-                            colorScheme={'teal'}
-                            size={'sm'}
-                            px={'6'}
+                            variant="solid"
+                            colorScheme="teal"
+                            size="sm"
+                            px={6}
                             h={10}
                             onClick={handleSearch}
                         >
@@ -104,10 +60,9 @@ const Header = ({ setSearchQuery }) => {
                         </Button>
                     </InputGroup>
                 )}
-            </HStack>
+            </Flex>
         </Box>
     );
 };
 
 export default Header;
-

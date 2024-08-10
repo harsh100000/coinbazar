@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, HStack, Heading, Image, VStack, Text } from '@chakra-ui/react';
+import { Heading, Image, VStack, Text } from '@chakra-ui/react';
 import {Link} from "react-router-dom"
 
 
